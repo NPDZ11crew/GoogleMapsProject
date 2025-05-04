@@ -1,0 +1,6 @@
+@GoogleMaps_FinalProjectAspApi_HostAddress = http://localhost:5042
+
+GET {{GoogleMaps_FinalProjectAspApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
