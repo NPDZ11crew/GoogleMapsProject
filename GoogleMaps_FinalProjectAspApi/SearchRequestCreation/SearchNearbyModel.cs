@@ -51,7 +51,7 @@
             return requestBody;
         }
 
-        public static SearchNearbyModel GetRequestBody(List<string> types, double lat, double lng)
+        public static SearchNearbyModel GetRequestBody(List<string> types, double lat, double lng, float rad = 500f)
         {
             var requestBody = new SearchNearbyModel
             {
@@ -66,7 +66,7 @@
                             latitude = lat,
                             longitude = lng,
                         },
-                        radius = 500f,
+                        radius = rad,
                     }
                 }
             };
