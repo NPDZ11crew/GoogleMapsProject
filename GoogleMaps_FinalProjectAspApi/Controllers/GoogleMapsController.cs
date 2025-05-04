@@ -1,4 +1,5 @@
 ﻿using GoogleMaps_FinalProjectAspApi.Abstract;
+using GoogleMaps_FinalProjectAspApi.Core;
 using GoogleMaps_FinalProjectAspApi.Models;
 using GoogleMaps_FinalProjectAspApi.Optimization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,14 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         private readonly ILogger<GoogleMapsController> _logger;
         private readonly IGoogleMapsService _googleMapService;
         private readonly IPlaceService _placeService;
+        private readonly IGeocodingService _geocodingService;
 
-        public GoogleMapsController(ILogger<GoogleMapsController> logger, IGoogleMapsService googleMapService, IPlaceService placeService)
+        public GoogleMapsController(ILogger<GoogleMapsController> logger, IGoogleMapsService googleMapService, IPlaceService placeService, IGeocodingService geocodingService)
         {
             _logger = logger;
             _googleMapService = googleMapService;
             _placeService = placeService;
+            _geocodingService = geocodingService;
         }
 
         [HttpPost("SearchText")]
@@ -39,7 +42,9 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         [HttpPost("SearchNearby")]
         public async Task<IActionResult> NearbySearch(double lat, double lng)
         {
-            var responseResult = await _googleMapService.SearchNearbyPostAsync();
+            
+            var responseResult = await _googleMapService.SearchNearbyPostAsync( lat, lng);
+
             if (responseResult == null)
             {
                 return NotFound();
@@ -52,5 +57,32 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
             return Ok(places);
         }
 
+        [HttpPost("NearbySearchByCity")]
+        public async Task<IActionResult> NearbySearchByCity(string city)
+        {
+
+            var coordinates = await _geocodingService.GetCoordinatesAsync(city);
+            if (coordinates == null)
+            {
+                return NotFound("City not found or geocoding error.");
+            }
+
+            var (lat, lng, rad) = coordinates.Value;
+
+            //return Ok($"{lat}, {lng}, {rad}");
+
+            var responseResult = await _googleMapService.SearchNearbyPostAsync(lat, lng, rad);
+            if (responseResult == null)
+            {
+                return NotFound();
+            }
+            var places = JsonSerializer.Deserialize<PlaceApiResponse>(responseResult).Places;
+            foreach (PlaceDto place in places)
+            {
+                await _placeService.AddAsync(place);
+            }
+            return Ok(places);
+        }
+        
     }
 }

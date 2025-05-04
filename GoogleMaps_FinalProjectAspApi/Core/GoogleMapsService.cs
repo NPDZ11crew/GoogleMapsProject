@@ -7,6 +7,7 @@ using GoogleMaps_FinalProjectAspApi.Abstract;
 using System.Net;
 using GoogleMaps_FinalProjectAspApi.Optimization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace GoogleMaps_FinalProjectAspApi.Core
 {
@@ -28,12 +29,16 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             return await SendGoogleMapsRequestAsync("RequestUriSearchText", requestBody);
         }
 
-        public async Task<string> SearchNearbyPostAsync()
+        public async Task<string> SearchNearbyPostAsync(double lat, double lng)
         {
-            var requestBody = SearchNearbyModel.GetRequestBody();
+            var requestBody = SearchNearbyModel.GetRequestBody( lat, lng);
             return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
         }
-
+        public async Task<string> SearchNearbyPostAsync(double lat, double lng, float rad)
+        {
+            var requestBody = SearchNearbyModel.GetRequestBody(lat, lng, rad);
+            return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
+        }
         public async Task<string> SendGoogleMapsRequestAsync<T>(string uriKey, T requestBody)
         {
             var requestUri = _configuration.GetValue<string>($"RequestData:{uriKey}");
