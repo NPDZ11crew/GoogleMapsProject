@@ -17,11 +17,14 @@ namespace GoogleMaps_FinalProjectAspApi.Core
         public async Task AddAsync(PlaceDto place)
         {
             place.Id = Guid.NewGuid();
+            string types = string.Join(',', place.Types);
+
             var result = new Place
             {
                 Id = place.Id,
                 PlaceId = place.PlaceId,
                 Name = place.Name.text,
+                Types = types,
                 NationalPhoneNumber = place.NationalPhoneNumber,
                 Latitude = place.Location.latitude,
                 Longitude = place.Location.longitude,
@@ -50,6 +53,7 @@ namespace GoogleMaps_FinalProjectAspApi.Core
                     Id = place.Id,
                     PlaceId = place.PlaceId,
                     Name = new LocalizedText { text = place.Name, languageCode = "unknown"},
+                    Types = place.Types.Split(',').ToList(),
                     NationalPhoneNumber = place.NationalPhoneNumber,
                     Location = new Center
                     {
@@ -67,20 +71,23 @@ namespace GoogleMaps_FinalProjectAspApi.Core
 
         public async Task UpdateAsync(PlaceDto place)
         {
-            place.Id = Guid.NewGuid();
-            var result = new Place
-            {
-                Id = place.Id,
-                PlaceId = place.PlaceId,
-                Name = place.Name.text,
-                NationalPhoneNumber = place.NationalPhoneNumber,
-                Latitude = place.Location.latitude,
-                Longitude = place.Location.longitude,
-                FormattedAddress = place.FormattedAddress,
-                Rating = place.Rating,
-                GoogleMapsUri = place.GoogleMapsUri
-            };
-            await _repository.UpdateAsync(result);
+			place.Id = Guid.NewGuid();
+			string types = string.Join(',', place.Types);
+
+			var result = new Place
+			{
+				Id = place.Id,
+				PlaceId = place.PlaceId,
+				Name = place.Name.text,
+				Types = types,
+				NationalPhoneNumber = place.NationalPhoneNumber,
+				Latitude = place.Location.latitude,
+				Longitude = place.Location.longitude,
+				FormattedAddress = place.FormattedAddress,
+				Rating = place.Rating,
+				GoogleMapsUri = place.GoogleMapsUri
+			};
+			await _repository.UpdateAsync(result);
         }
     }
 

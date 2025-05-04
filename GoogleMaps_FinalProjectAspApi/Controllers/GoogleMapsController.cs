@@ -44,7 +44,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
             {
                 return NotFound();
             }
-            var places = JsonSerializer.Deserialize<PlaceApiResponse>(responseResult).Places;
+            var places = JsonSerializer.Deserialize<PlaceApiResponse>(responseResult).Places.OrderBy(p => p.Rating).ToList();
             foreach (PlaceDto place in places)
             {
                 await _placeService.AddAsync(place);

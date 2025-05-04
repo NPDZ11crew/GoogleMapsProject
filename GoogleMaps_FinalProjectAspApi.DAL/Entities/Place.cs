@@ -11,6 +11,7 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Entities
         public Guid Id { get; set; }
         public string PlaceId { get; set; }
         public string Name { get; set; }
+        public string Types { get; set; }
         public string NationalPhoneNumber { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
