@@ -7,7 +7,7 @@
         public LocationRestriction locationRestriction { get; set; }
 
 
-        public static SearchNearbyModel GetRequestBody(double lat, double lng, float rad = 500f)
+        public static SearchNearbyModel GetRequestBody(double lat, double lng, float rad)
         {
             var requestBody = new SearchNearbyModel
             {

@@ -29,12 +29,7 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             return await SendGoogleMapsRequestAsync("RequestUriSearchText", requestBody);
         }
 
-        public async Task<string> SearchNearbyPostAsync(double lat, double lng)
-        {
-            var requestBody = SearchNearbyModel.GetRequestBody( lat, lng);
-            return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
-        }
-        public async Task<string> SearchNearbyPostAsync(double lat, double lng, float rad)
+        public async Task<string> SearchNearbyPostAsync(double lat, double lng, float rad = 500f)
         {
             var requestBody = SearchNearbyModel.GetRequestBody(lat, lng, rad);
             return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
