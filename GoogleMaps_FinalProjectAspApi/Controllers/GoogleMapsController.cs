@@ -37,7 +37,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         }
 
         [HttpPost("SearchNearby")]
-        public async Task<IActionResult> NearbySearch()
+        public async Task<IActionResult> NearbySearch(double lat, double lng)
         {
             var responseResult = await _googleMapService.SearchNearbyPostAsync();
             if (responseResult == null)
