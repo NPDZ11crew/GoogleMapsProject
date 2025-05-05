@@ -7,22 +7,22 @@
         public LocationRestriction locationRestriction { get; set; }
 
 
-        public static SearchNearbyModel GetRequestBody()
+        public static SearchNearbyModel GetRequestBody(double lat, double lng, float rad)
         {
             var requestBody = new SearchNearbyModel
             {
                 includedTypes = new List<string> { "restaurant" },
-                maxResultCount = 5,
+                maxResultCount = 10,
                 locationRestriction = new LocationRestriction
                 {
                     circle = new Circle
                     {
                         center = new Center
                         {
-                            latitude = 37.7937,
-                            longitude = -122.3965,
+                            latitude = lat,
+                            longitude = lng,
                         },
-                        radius = 500f,
+                        radius = rad,
                     }
                 }
             };
