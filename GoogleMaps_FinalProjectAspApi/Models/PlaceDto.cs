@@ -13,6 +13,9 @@ namespace GoogleMaps_FinalProjectAspApi.Models
         [JsonPropertyName("displayName")]
         public LocalizedText Name { get; set; }
 
+        [JsonPropertyName("types")]
+        public List<string> Types { get; set; }
+
         [JsonPropertyName("nationalPhoneNumber")]
         public string NationalPhoneNumber { get; set; }
 
