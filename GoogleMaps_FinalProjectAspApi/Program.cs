@@ -31,6 +31,7 @@ namespace GoogleMaps_FinalProjectAspApi
             builder.Services.AddScoped<IPlaceService, PlaceService>();
             builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
             builder.Services.AddScoped<IGoogleMapsService, GoogleMapsService>();
+            builder.Services.AddScoped<IGeocodingService, GeocodingService>();
             builder.Services.AddHttpClient();
             builder.Services.AddDbContext<GMDbContext>(options =>
                                             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
