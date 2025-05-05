@@ -51,11 +51,18 @@
             return requestBody;
         }
 
-        public static SearchNearbyModel GetRequestBody(List<string> types, double lat, double lng, float rad = 500f)
+        public static SearchNearbyModel GetRequestBody(int groupOfFacility, List<int> types, double lat, double lng, float rad = 500f)
         {
+            var strTypes = new List<string>();
+
+            foreach (var type in types)
+            {
+                strTypes.Add(GoogleMapsTypes.Types[groupOfFacility][type]);
+            }
+
             var requestBody = new SearchNearbyModel
             {
-                includedTypes = types,
+                includedTypes = strTypes,
                 maxResultCount = 10,
                 locationRestriction = new LocationRestriction
                 {

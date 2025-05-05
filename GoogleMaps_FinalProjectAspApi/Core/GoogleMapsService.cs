@@ -28,9 +28,9 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             return await SendGoogleMapsRequestAsync("RequestUriSearchText", requestBody);
         }
 
-        public async Task<string> SearchNearbyPostAsync()
+        public async Task<string> SearchNearbyPostAsync(int groupOfFacility, List<int> types, double lat, double lng, float rad)
         {
-            var requestBody = SearchNearbyModel.GetRequestBody();
+            var requestBody = SearchNearbyModel.GetRequestBody(groupOfFacility, types, lat, lng, rad);
             return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
         }
 
