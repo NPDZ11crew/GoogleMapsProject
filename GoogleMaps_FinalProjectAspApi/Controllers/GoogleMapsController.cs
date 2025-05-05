@@ -40,10 +40,10 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         }
 
         [HttpPost("SearchNearby")]
-        public async Task<IActionResult> NearbySearch(double lat, double lng)
+        public async Task<IActionResult> NearbySearch(int groupOfFacility, List<int> types, double lat, double lng, float rad = 500f)
         {
             
-            var responseResult = await _googleMapService.SearchNearbyPostAsync(lat, lng);
+            var responseResult = await _googleMapService.SearchNearbyPostAsync(groupOfFacility, types , lat, lng, rad);
 
             if (responseResult == null)
             {
@@ -58,7 +58,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         }
 
         [HttpPost("NearbySearchByCity")]
-        public async Task<IActionResult> NearbySearchByCity(string city)
+        public async Task<IActionResult> NearbySearchByCity(int groupOfFacility, List<int> types, string city)
         {
 
             var coordinates = await _geocodingService.GetCoordinatesAsync(city);
@@ -71,7 +71,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
 
             //return Ok($"{lat}, {lng}, {rad}");
 
-            var responseResult = await _googleMapService.SearchNearbyPostAsync(lat, lng, rad);
+            var responseResult = await _googleMapService.SearchNearbyPostAsync( groupOfFacility, types,lat, lng, rad);
             if (responseResult == null)
             {
                 return NotFound();
@@ -81,6 +81,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
             {
                 await _placeService.AddAsync(place);
             }
+
             return Ok(places);
         }
         
