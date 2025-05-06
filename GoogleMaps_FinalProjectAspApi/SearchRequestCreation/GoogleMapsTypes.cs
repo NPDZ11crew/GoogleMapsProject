@@ -2,7 +2,7 @@
 {
     public class GoogleMapsTypes
     {
-        public static Dictionary<int, List<string>> Types { get; set; } = new Dictionary<int, List<string>>
+        public  Dictionary<int, List<string>> Types { get; set; } = new Dictionary<int, List<string>>
             {
                 { 0, AutomotiveLst },
                 { 1, BusinessLst },

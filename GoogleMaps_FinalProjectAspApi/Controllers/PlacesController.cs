@@ -1,4 +1,5 @@
-﻿using GoogleMaps_FinalProjectAspApi.Abstract;
+﻿using Azure.Core;
+using GoogleMaps_FinalProjectAspApi.Abstract;
 using GoogleMaps_FinalProjectAspApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +48,27 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
                     resultPlaces.Add(place);
                 }
             }
+            return resultPlaces;
+        }
+
+        [HttpGet("GetByDate")]
+        public async Task<List<PlaceDto>> GetPlacesByDateAsync(DateTime dateOfRequest)
+        {
+            var places = await _placeService.GetAllAsync();
+            var resultPlaces = places
+                .Where(p => p.DateOfRequest.Date == dateOfRequest.Date)
+                .ToList();
+
+            return resultPlaces;
+        }
+
+        [HttpGet("GetByDateRange")]
+        public async Task<List<PlaceDto>> GetPlacesByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var places = await _placeService.GetAllAsync();
+            var resultPlaces = places
+                .Where(p => p.DateOfRequest >= startDate && p.DateOfRequest <= endDate)
+                .ToList();
             return resultPlaces;
         }
 

@@ -30,7 +30,8 @@ namespace GoogleMaps_FinalProjectAspApi.Core
                 Longitude = place.Location.longitude,
                 FormattedAddress = place.FormattedAddress,
                 Rating = place.Rating,
-                GoogleMapsUri = place.GoogleMapsUri
+                GoogleMapsUri = place.GoogleMapsUri,
+                DateOfRequest = DateTime.Now
             };
             await _repository.AddAsync(result);
         }
@@ -62,7 +63,8 @@ namespace GoogleMaps_FinalProjectAspApi.Core
                     },
                     FormattedAddress = place.FormattedAddress,
                     Rating = place.Rating,
-                    GoogleMapsUri = place.GoogleMapsUri
+                    GoogleMapsUri = place.GoogleMapsUri,
+                    DateOfRequest = place.DateOfRequest
                 });
             }
 
@@ -85,7 +87,8 @@ namespace GoogleMaps_FinalProjectAspApi.Core
 				Longitude = place.Location.longitude,
 				FormattedAddress = place.FormattedAddress,
 				Rating = place.Rating,
-				GoogleMapsUri = place.GoogleMapsUri
+				GoogleMapsUri = place.GoogleMapsUri,
+                DateOfRequest = DateTime.Now
 			};
 			await _repository.UpdateAsync(result);
         }

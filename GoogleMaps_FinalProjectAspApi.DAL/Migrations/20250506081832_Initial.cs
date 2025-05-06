@@ -18,12 +18,14 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlaceId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Types = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NationalPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     FormattedAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    GoogleMapsUri = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    GoogleMapsUri = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfRequest = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

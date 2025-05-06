@@ -54,10 +54,10 @@
         public static SearchNearbyModel GetRequestBody(int groupOfFacility, List<int> types, double lat, double lng, float rad = 500f)
         {
             var strTypes = new List<string>();
-
+            var googleTypes = new GoogleMapsTypes();
             foreach (var type in types)
             {
-                strTypes.Add(GoogleMapsTypes.Types[groupOfFacility][type]);
+                strTypes.Add(googleTypes.Types[groupOfFacility][type]);
             }
 
             var requestBody = new SearchNearbyModel
