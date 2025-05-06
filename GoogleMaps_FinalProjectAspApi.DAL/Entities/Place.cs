@@ -18,5 +18,6 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Entities
         public string FormattedAddress { get; set; }
         public double Rating { get; set; }
         public string GoogleMapsUri { get; set; }
+        public DateTime DateOfRequest { get; set; }
     }
 }

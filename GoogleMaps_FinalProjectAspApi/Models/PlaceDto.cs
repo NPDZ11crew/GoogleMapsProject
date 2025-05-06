@@ -30,5 +30,7 @@ namespace GoogleMaps_FinalProjectAspApi.Models
 
         [JsonPropertyName("googleMapsUri")]
         public string GoogleMapsUri { get; set; }
+
+        public DateTime DateOfRequest { get; set; }
     }
 }
