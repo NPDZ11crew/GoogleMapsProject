@@ -28,6 +28,9 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateOfRequest")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FormattedAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,7 +50,6 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalPhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceId")
@@ -56,6 +58,10 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
+
+                    b.Property<string>("Types")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
