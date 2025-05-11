@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
 {
     [DbContext(typeof(GMDbContext))]
-    [Migration("20250501130220_ChangedRatingType")]
-    partial class ChangedRatingType
+    [Migration("20250506081832_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateOfRequest")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FormattedAddress")
                         .IsRequired()
@@ -59,6 +62,10 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
+
+                    b.Property<string>("Types")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

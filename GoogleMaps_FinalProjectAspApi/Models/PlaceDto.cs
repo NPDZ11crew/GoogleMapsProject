@@ -17,7 +17,7 @@ namespace GoogleMaps_FinalProjectAspApi.Models
         public List<string> Types { get; set; }
 
         [JsonPropertyName("nationalPhoneNumber")]
-        public string NationalPhoneNumber { get; set; }
+        public string? NationalPhoneNumber { get; set; }
 
         [JsonPropertyName("location")]
         public Center Location { get; set; }
@@ -30,5 +30,7 @@ namespace GoogleMaps_FinalProjectAspApi.Models
 
         [JsonPropertyName("googleMapsUri")]
         public string GoogleMapsUri { get; set; }
+
+        public DateTime DateOfRequest { get; set; }
     }
 }
