@@ -31,6 +31,8 @@ namespace GoogleMaps_FinalProjectAspApi.Core
                 FormattedAddress = place.FormattedAddress,
                 Rating = place.Rating,
                 GoogleMapsUri = place.GoogleMapsUri,
+                PhotoName = place.Photos[0].PhotoName,
+                PhotoUri = place.Photos[0].PhotoUri,
                 DateOfRequest = DateTime.Now
             };
             await _repository.AddAsync(result);
@@ -64,7 +66,16 @@ namespace GoogleMaps_FinalProjectAspApi.Core
                     FormattedAddress = place.FormattedAddress,
                     Rating = place.Rating,
                     GoogleMapsUri = place.GoogleMapsUri,
-                    DateOfRequest = place.DateOfRequest
+                    DateOfRequest = place.DateOfRequest,
+                    Photos = new List<Photo>
+                    {
+                        new Photo
+                        {
+                            PhotoUri = place.PhotoUri,
+                            PhotoName = place.PhotoName,
+                        }
+                    }
+                    
                 });
             }
 
@@ -88,8 +99,10 @@ namespace GoogleMaps_FinalProjectAspApi.Core
 				FormattedAddress = place.FormattedAddress,
 				Rating = place.Rating,
 				GoogleMapsUri = place.GoogleMapsUri,
-                DateOfRequest = DateTime.Now
-			};
+                DateOfRequest = DateTime.Now,
+                PhotoName = place.Photos[0].PhotoName,
+                PhotoUri = place.Photos[0].PhotoUri,
+            };
 			await _repository.UpdateAsync(result);
         }
     }
