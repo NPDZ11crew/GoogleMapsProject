@@ -35,7 +35,7 @@ namespace GoogleMaps_FinalProjectAspApi.Optimization
 			request.Headers.Add(authorization.ApiKeyName, authorization.ApiKeyValue);
 
 
-			request.Content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+			//request.Content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
 
 			return request;
 		}
