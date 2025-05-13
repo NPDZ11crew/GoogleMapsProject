@@ -84,7 +84,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
             }
 
             return Ok(places);
-        }
+	}
 
 		[HttpPost("SearchPlaceDetailsById")]
 		public async Task<IActionResult> SearchPlaceDetailsById(string id)
@@ -97,14 +97,14 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
             }
 
 			var photoLinks = new JsonArray();
-
+		
 			foreach (var photo in node["photos"]?.AsArray())
 			{
 				var uri = photo?["googleMapsUri"]?.ToString();
 				if (!string.IsNullOrWhiteSpace(uri))
 					photoLinks.Add(uri);
 			}
-
+		
 			var details = new PlaceDetails
 			{
 				Name = node["displayName"]?["text"]?.ToString() ?? "",
@@ -115,7 +115,7 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
 				Photos = photoLinks
 			};
 
-            return Ok(details);
+    		return Ok(details);
 		}
 	}
 }
