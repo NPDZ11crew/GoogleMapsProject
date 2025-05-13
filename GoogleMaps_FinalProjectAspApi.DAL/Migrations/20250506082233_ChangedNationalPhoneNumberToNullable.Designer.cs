@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
 {
     [DbContext(typeof(GMDbContext))]
-    [Migration("20250501081731_Initial")]
-    partial class Initial
+    [Migration("20250506082233_ChangedNationalPhoneNumberToNullable")]
+    partial class ChangedNationalPhoneNumberToNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateOfRequest")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FormattedAddress")
                         .IsRequired()
@@ -50,15 +53,18 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalPhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Types")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

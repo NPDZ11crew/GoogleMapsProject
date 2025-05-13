@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
 {
     [DbContext(typeof(GMDbContext))]
-    [Migration("20250501130220_ChangedRatingType")]
-    partial class ChangedRatingType
+    [Migration("20250511120138_UserTableCreated")]
+    partial class UserTableCreated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateOfRequest")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FormattedAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -39,10 +42,10 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Latitude")
+                    b.Property<double?>("Latitude")
                         .HasColumnType("float");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("Longitude")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
@@ -50,7 +53,6 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalPhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceId")
@@ -60,9 +62,36 @@ namespace GoogleMaps_FinalProjectAspApi.DAL.Migrations
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
+                    b.Property<string>("Types")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("GoogleMaps_FinalProjectAspApi.DAL.Entities.User", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("ActualLatitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("ActualLongitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("LastCity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TelegramId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
