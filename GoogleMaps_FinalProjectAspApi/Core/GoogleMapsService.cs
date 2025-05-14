@@ -23,6 +23,12 @@ namespace GoogleMaps_FinalProjectAspApi.Core
         }
         
 
+        public async Task<string> SearchIdGetAsync(string id)
+        {
+			var requestBody = SearchTextModel.GetRequestBody(id);
+			return await SendGoogleMapsRequestAsync("RequestUriDetails", requestBody, id);
+		}
+
         public async Task<string> SearchTextPostAsync(string text)
         {
             var requestBody = SearchTextModel.GetRequestBody(text);
@@ -43,6 +49,16 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             var request = RequestManager.CreateRequest(requestUri, headers, authorization, requestBody);
             var response = await RequestManager.SendRequest(request, _httpClient);
             return response;
-        }   
+        }
+
+        public async Task<string> SendGoogleMapsRequestAsync<T>(string uriKey, T requestBody, string id)
+        {
+			var requestUri = _configuration.GetValue<string>($"RequestData:{uriKey}");
+			var authorization = GoogleMapsAuthorization.GetAuthorization(_configuration);
+			var headers = MapsHeaders.CreateGetIdHeaders();
+			var request = RequestManager.CreateGetRequest($"{requestUri}{id}", headers, authorization, requestBody);
+			var response = await RequestManager.SendRequest(request, _httpClient);
+			return response;
+		}
     }
 }
