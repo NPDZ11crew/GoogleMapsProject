@@ -7,12 +7,12 @@
         public static MapsHeaders CreateHeaders()
         {
             var headers = new MapsHeaders();
-          
-            headers.RequestHeaders.Add("X-Goog-FieldMask", "places.id,places.displayName,places.nationalPhoneNumber,places.formattedAddress," +
-                "places.rating,places.googleMapsUri,places.location,places.regularOpeningHours,places.userRatingCount");
-          
+            headers.RequestHeaders.Add("X-Goog-FieldMask", "places.id,places.displayName,places.nationalPhoneNumber,places.formattedAddress,places.rating,places.googleMapsUri,places.location,places.types,places.photos,places.regularOpeningHours,places.userRatingCount");
+
             return headers;
         }
+      
+      
         public static MapsHeaders CreateHeaders(List<string> keys, List<string> values)
         {
             var headers = new MapsHeaders();
@@ -23,6 +23,7 @@
             return headers;
         }
 
+      
 		public static MapsHeaders CreateGetIdHeaders()
 		{
 			var headers = new MapsHeaders();

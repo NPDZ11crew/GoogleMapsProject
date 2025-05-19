@@ -31,6 +31,8 @@ namespace GoogleMaps_FinalProjectAspApi.Models
         [JsonPropertyName("googleMapsUri")]
         public string GoogleMapsUri { get; set; }
 
+        [JsonPropertyName("photos")]
+        public List<Photo> Photos { get; set; }
         public DateTime DateOfRequest { get; set; }
     }
 }
