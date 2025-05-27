@@ -5,7 +5,6 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text;
 using GoogleMaps_FinalProjectAspApi.Abstract;
-using System.Net;
 using GoogleMaps_FinalProjectAspApi.Optimization;
 using GoogleMaps_FinalProjectAspApi.Models;
 using Microsoft.Extensions.Configuration;
@@ -75,7 +74,7 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             var requestBody = SearchNearbyModel.GetRequestBody(groupOfFacility, types, lat, lng, rad);
             return await SendGoogleMapsRequestAsync("RequestUriSearchNearby", requestBody);
         }
-
+    
         public async Task<string> SendGoogleMapsRequestAsync<T>(string uriKey, T requestBody)
         {
             var requestUri = _configuration.GetValue<string>($"RequestData:{uriKey}");
