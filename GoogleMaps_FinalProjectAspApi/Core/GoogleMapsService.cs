@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text;
 using GoogleMaps_FinalProjectAspApi.Abstract;
 using System.Net;
 using GoogleMaps_FinalProjectAspApi.Optimization;
+using GoogleMaps_FinalProjectAspApi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 
@@ -22,6 +24,39 @@ namespace GoogleMaps_FinalProjectAspApi.Core
             _configuration = configuration;
         }
         
+
+        public async Task<PlaceDetails?> GetPlaceDetailsFromJsonNode(JsonNode node)
+        {
+
+			var photoLinks = new List<string>();
+            var weekdayDescription = new List<string>();
+
+			foreach (var photo in node["photos"].AsArray())
+			{
+				var uri = photo?["googleMapsUri"]?.ToString();
+				if (!string.IsNullOrWhiteSpace(uri))
+					photoLinks.Add(uri);
+			}
+
+			foreach (var weekday in node["regularOpeningHours"]["weekdayDescriptions"].AsArray())
+			{
+				var day = weekday?.ToString();
+				if (!string.IsNullOrWhiteSpace(day))
+					weekdayDescription.Add(day);
+			}
+
+			var details = new PlaceDetails
+			{
+				Name = node["displayName"]?["text"]?.ToString() ?? "",
+				Rating = node["rating"]?.GetValue<double>() ?? 0,
+				RatingsCount = node["userRatingCount"]?.GetValue<int>() ?? 0,
+				Address = node["formattedAddress"]?.ToString() ?? "",
+				WeekdayDescriptions = weekdayDescription,
+				Photos = photoLinks
+			};
+
+            return details;
+		}
 
         public async Task<string> SearchIdGetAsync(string id)
         {

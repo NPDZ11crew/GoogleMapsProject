@@ -89,33 +89,16 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
 		[HttpPost("SearchPlaceDetailsById")]
 		public async Task<IActionResult> SearchPlaceDetailsById(string id)
 		{
-            var node = JsonNode.Parse(await _googleMapService.SearchIdGetAsync(id));
+			var node = JsonNode.Parse(await _googleMapService.SearchIdGetAsync(id));
 
-            if (node == null)
-            {
-                return NotFound();
-            }
-
-			var photoLinks = new JsonArray();
-		
-			foreach (var photo in node["photos"]?.AsArray())
+			if (node == null)
 			{
-				var uri = photo?["googleMapsUri"]?.ToString();
-				if (!string.IsNullOrWhiteSpace(uri))
-					photoLinks.Add(uri);
+				return null;
 			}
-		
-			var details = new PlaceDetails
-			{
-				Name = node["displayName"]?["text"]?.ToString() ?? "",
-				Rating = node["rating"]?.GetValue<double>() ?? 0,
-				RatingsCount = node["userRatingCount"]?.GetValue<int>() ?? 0,
-				Address = node["formattedAddress"]?.ToString() ?? "",
-				WeekdayDescriptions = node["regularOpeningHours"]?["weekdayDescriptions"]?.AsArray(),
-				Photos = photoLinks
-			};
 
-    		return Ok(details);
+			var details = await _googleMapService.GetPlaceDetailsFromJsonNode(node);
+        
+			return Ok(details);
 		}
 	}
 }

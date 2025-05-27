@@ -19,9 +19,9 @@ namespace GoogleMaps_FinalProjectAspApi.Models
 		public string Address { get; set; }
 
 		[JsonPropertyName("weekdayDescriptions")]
-		public JsonArray WeekdayDescriptions { get; set; }
+		public List<string> WeekdayDescriptions { get; set; }
 
 		[JsonPropertyName("photos")]
-		public JsonArray Photos { get; set; }
+		public List<string> Photos { get; set; }
 	}
 }
