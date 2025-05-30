@@ -4,24 +4,26 @@ using System.Text.Json.Nodes;
 
 namespace GoogleMaps_FinalProjectAspApi.Models
 {
-	public class PlaceDetails
+	public class PlaceDetailsDto
 	{
-		[JsonPropertyName("displayName")]
+        public Guid Id { get; set; }
+
+        [JsonPropertyName("displayName")]
 		public string Name { get; set; }
 
 		[JsonPropertyName("rating")]
-		public double Rating { get; set; }
+		public double? Rating { get; set; }
 
 		[JsonPropertyName("userRatingsCount")]
-		public int RatingsCount { get; set; }
+		public int? RatingsCount { get; set; }
 
 		[JsonPropertyName("formattedAddress")]
-		public string Address { get; set; }
+		public string? Address { get; set; }
 
 		[JsonPropertyName("weekdayDescriptions")]
-		public List<string> WeekdayDescriptions { get; set; }
+		public List<string>? WeekdayDescriptions { get; set; }
 
 		[JsonPropertyName("photos")]
-		public List<string> Photos { get; set; }
+		public List<string>? Photos { get; set; }
 	}
 }

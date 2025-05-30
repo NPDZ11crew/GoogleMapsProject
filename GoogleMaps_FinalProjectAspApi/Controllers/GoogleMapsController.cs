@@ -1,5 +1,6 @@
 ﻿using GoogleMaps_FinalProjectAspApi.Abstract;
 using GoogleMaps_FinalProjectAspApi.Core;
+using GoogleMaps_FinalProjectAspApi.DAL.Entities;
 using GoogleMaps_FinalProjectAspApi.Models;
 using GoogleMaps_FinalProjectAspApi.Optimization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,15 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
         private readonly IGoogleMapsService _googleMapService;
         private readonly IPlaceService _placeService;
         private readonly IGeocodingService _geocodingService;
+        private readonly IPlaceDetailsService _placeDetailsService;
 
-        public GoogleMapsController(ILogger<GoogleMapsController> logger, IGoogleMapsService googleMapService, IPlaceService placeService, IGeocodingService geocodingService)
+        public GoogleMapsController(ILogger<GoogleMapsController> logger, IGoogleMapsService googleMapService, IPlaceService placeService, IGeocodingService geocodingService, IPlaceDetailsService placeDetailsService)
         {
             _logger = logger;
             _googleMapService = googleMapService;
             _placeService = placeService;
             _geocodingService = geocodingService;
+            _placeDetailsService = placeDetailsService;
         }
 
         [HttpPost("SearchText")]
@@ -97,8 +100,8 @@ namespace GoogleMaps_FinalProjectAspApi.Controllers
 			}
 
 			var details = await _googleMapService.GetPlaceDetailsFromJsonNode(node);
-        
-			return Ok(details);
+            await _placeDetailsService.AddAsync(details);
+            return Ok(details);
 		}
 	}
 }

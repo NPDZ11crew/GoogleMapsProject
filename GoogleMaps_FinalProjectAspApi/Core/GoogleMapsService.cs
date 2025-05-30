@@ -24,7 +24,7 @@ namespace GoogleMaps_FinalProjectAspApi.Core
         }
         
 
-        public async Task<PlaceDetails?> GetPlaceDetailsFromJsonNode(JsonNode node)
+        public async Task<PlaceDetailsDto?> GetPlaceDetailsFromJsonNode(JsonNode node)
         {
 
 			var photoLinks = new List<string>();
@@ -44,7 +44,7 @@ namespace GoogleMaps_FinalProjectAspApi.Core
 					weekdayDescription.Add(day);
 			}
 
-			var details = new PlaceDetails
+			var details = new PlaceDetailsDto
 			{
 				Name = node["displayName"]?["text"]?.ToString() ?? "",
 				Rating = node["rating"]?.GetValue<double>() ?? 0,
